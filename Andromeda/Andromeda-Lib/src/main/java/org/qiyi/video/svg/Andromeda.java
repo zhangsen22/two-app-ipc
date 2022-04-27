@@ -34,7 +34,6 @@ import android.view.View;
 
 import org.qiyi.video.svg.event.Event;
 import org.qiyi.video.svg.event.EventListener;
-import org.qiyi.video.svg.local.LocalServiceHub;
 import org.qiyi.video.svg.remote.ConnectionManager;
 import org.qiyi.video.svg.remote.IRemoteManager;
 import org.qiyi.video.svg.remote.RemoteManagerRetriever;
@@ -89,53 +88,6 @@ public class Andromeda {
         return appContext;
     }
 
-    public static void registerLocalService(Class serviceClass, Object serviceImpl) {
-        if (null == serviceClass || null == serviceImpl) {
-            return;
-        }
-        LocalServiceHub.getInstance().registerService(serviceClass.getCanonicalName(), serviceImpl);
-    }
-
-    //考虑到混淆，直接写类的完整路径名容易导致两边不一致，所以不推荐使用这种方式!
-    @Deprecated
-    public static void registerLocalService(String serviceCanonicalName, Object serviceImpl) {
-        if (TextUtils.isEmpty(serviceCanonicalName) || null == serviceImpl) {
-            return;
-        }
-        LocalServiceHub.getInstance().registerService(serviceCanonicalName, serviceImpl);
-    }
-
-    public static <T> T getLocalService(Class serviceClass) {
-        if (null == serviceClass) {
-            return null;
-        }
-        return (T) LocalServiceHub.getInstance().getLocalService(serviceClass.getCanonicalName());
-    }
-
-    @Deprecated
-    public static <T> T getLocalService(String serviceCanonicalName) {
-        if (TextUtils.isEmpty(serviceCanonicalName)) {
-            return null;
-        }
-        return (T) LocalServiceHub.getInstance().getLocalService(serviceCanonicalName);
-    }
-
-    public static void unregisterLocalService(Class serviceClass) {
-        if (null == serviceClass) {
-            return;
-        }
-        LocalServiceHub.getInstance().unregisterService(serviceClass.getCanonicalName());
-    }
-
-    //考虑到混淆，不推荐使用这种方式!
-    @Deprecated
-    public static void unregisterLocalService(String serivceCanonicalName) {
-        if (TextUtils.isEmpty(serivceCanonicalName)) {
-            return;
-        }
-        LocalServiceHub.getInstance().unregisterService(serivceCanonicalName);
-    }
-
     public static <T extends IBinder> void registerRemoteService(Class serviceClass, T stubBinder) {
         if (null == serviceClass || null == stubBinder) {
             return;
@@ -186,10 +138,6 @@ public class Andromeda {
 
     public static IRemoteManager with(Context context) {
         return getRetriever().get(context);
-    }
-
-    public static IRemoteManager with(View view) {
-        return getRetriever().get(view);
     }
 
     private static RemoteManagerRetriever getRetriever() {
