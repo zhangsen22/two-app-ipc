@@ -19,30 +19,6 @@
         android:layout_margin="20dp"/>
 
     <Button
-        android:id="@+id/btn_connect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="btn_connect"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/btn_disconnect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="disconnect"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/btn_isconnect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="isconnect"
-        tools:ignore="MissingConstraints" />
-
-    <Button
         android:id="@+id/btn_send_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
