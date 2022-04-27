@@ -2,22 +2,13 @@ package com.example.demob;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.os.RemoteException;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.App;
 import com.example.demob.callback.BaseCallback;
-import com.watchdog.ipc.IConnectionService;
-import com.watchdog.ipc.IMessageService;
-import com.watchdog.ipc.IServiceManager;
 import com.watchdog.ipc.MessagereceiveListener;
 import com.watchdog.ipc.entry.Message;
 
@@ -73,26 +64,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_connect:
-                try {
-                    IWatchDogManager.getInstance().getConnectionServiceProxy().connection();
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
+
                 break;
             case R.id.btn_disconnect:
-                try {
-                    IWatchDogManager.getInstance().getConnectionServiceProxy().disconnection();
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
+
                 break;
             case R.id.btn_isconnect:
-                try {
-                    boolean connection = IWatchDogManager.getInstance().getConnectionServiceProxy().isConnection();
-                    Toast.makeText(this,String.valueOf(connection),Toast.LENGTH_SHORT).show();
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
+
                 break;
             case R.id.btn_send_message:
                 Message message = new Message();

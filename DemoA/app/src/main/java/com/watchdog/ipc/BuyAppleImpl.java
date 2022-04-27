@@ -3,25 +3,19 @@ package com.watchdog.ipc;
 import android.os.Bundle;
 import android.os.RemoteException;
 
-/**
- * Created by wangallen on 2018/1/18.
- */
 public class BuyAppleImpl extends IBuyApple.Stub {
 
-    private static BuyAppleImpl instance;
+    //private
+    private BuyAppleImpl() {
 
-    public static BuyAppleImpl getInstance() {
-        if (null == instance) {
-            synchronized (BuyAppleImpl.class) {
-                if (null == instance) {
-                    instance = new BuyAppleImpl();
-                }
-            }
-        }
-        return instance;
     }
 
-    private BuyAppleImpl() {
+    private static class SingletonInstance{
+        private final static BuyAppleImpl S = new BuyAppleImpl();
+    }
+    // 3 返回对象
+    public static BuyAppleImpl getInstance() {
+        return BuyAppleImpl.SingletonInstance.S;
     }
 
     @Override

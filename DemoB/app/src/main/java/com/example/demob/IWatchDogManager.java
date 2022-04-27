@@ -9,7 +9,6 @@ import android.os.RemoteException;
 import android.text.TextUtils;
 import android.util.Log;
 import com.watchdog.ipc.IBuyApple;
-import com.watchdog.ipc.IConnectionService;
 import com.watchdog.ipc.IMessageService;
 import com.watchdog.ipc.IServiceManager;
 
@@ -72,11 +71,6 @@ public class IWatchDogManager {
 
         return null;
 
-    }
-
-    public IConnectionService getConnectionServiceProxy(){
-        IConnectionService iConnectionService = IConnectionService.Stub.asInterface(getRemoteService(IConnectionService.class));
-        return iConnectionService;
     }
 
     public IMessageService getMessageServiceProxy(){
