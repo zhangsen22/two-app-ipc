@@ -12,9 +12,7 @@ import com.watchdog.ipc.WatchDogDispatcher;
  * 管理链接
  */
 public class WatchDogService extends Service {
-    private static final String TAG = "BinderSimple";
-
-    private boolean isConnected = false;
+    private static final String TAG = "WatchDogService";
 
     public WatchDogService() {
     }
