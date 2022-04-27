@@ -3,15 +3,6 @@
     package="wang.imallen.blog.servicemanagerlib">
 
     <application>
-        <service
-            android:name="org.qiyi.video.svg.dispatcher.RemoteGuardService"
-            android:enabled="true"
-            android:exported="true"
-            android:process=":guard">
-            <intent-filter>
-                <action android:name="wang.imallen.blog.guard" />
-            </intent-filter>
-        </service>
 
         <service
             android:name="org.qiyi.video.svg.dispatcher.DispatcherService"

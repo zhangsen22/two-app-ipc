@@ -79,12 +79,6 @@ public class Dispatcher extends IDispatcher.Stub {
     }
 
     @Override
-    public synchronized IBinder fetchTargetBinder(String uri) throws RemoteException {
-        //作为保留接口，后面可能会用到
-        return null;
-    }
-
-    @Override
     public synchronized void registerRemoteService(String serviceCanonicalName, String processName, IBinder binder) throws RemoteException {
         serviceDispatcher.registerRemoteServiceLocked(serviceCanonicalName, processName, binder);
     }
