@@ -24,23 +24,18 @@
 */
 package org.qiyi.video.svg;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.IBinder;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
-import android.view.View;
 
 import org.qiyi.video.svg.event.Event;
 import org.qiyi.video.svg.event.EventListener;
 import org.qiyi.video.svg.remote.ConnectionManager;
 import org.qiyi.video.svg.remote.IRemoteManager;
-import org.qiyi.video.svg.remote.RemoteManagerRetriever;
+import org.qiyi.video.svg.remote.RemoteManager;
 import org.qiyi.video.svg.transfer.RemoteTransfer;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -78,10 +73,8 @@ public class Andromeda {
         return sInstance;
     }
 
-    private RemoteManagerRetriever remoteManagerRetriever;
-
     private Andromeda() {
-        this.remoteManagerRetriever = new RemoteManagerRetriever();
+
     }
 
     public static Context getAppContext() {
@@ -119,26 +112,8 @@ public class Andromeda {
         RemoteTransfer.getInstance().unregisterStubService(serviceCanonicalName);
     }
 
-    public static IRemoteManager with(FragmentActivity fragmentActivity) {
-        return getRetriever().get(fragmentActivity);
-    }
-
-    public static IRemoteManager with(Activity activity) {
-        return getRetriever().get(activity);
-    }
-
     public static IRemoteManager with(Context context) {
-        return getRetriever().get(context);
-    }
-
-    private static RemoteManagerRetriever getRetriever() {
-        //Preconditions.checkNotNull(context,"context cannote be null in getRetriever(Context)");
-        return Andromeda.getInstance().getRemoteManagerRetriever();
-    }
-
-
-    public RemoteManagerRetriever getRemoteManagerRetriever() {
-        return remoteManagerRetriever;
+        return RemoteManager.getInstance(context);
     }
 
 

@@ -54,7 +54,7 @@ public class BananaActivity extends AppCompatActivity {
 
     private void useBuyAppleInShop() {
         //IBinder buyAppleBinder = Andromeda.getInstance().getRemoteService(IBuyApple.class);
-        IBinder buyAppleBinder = Andromeda.with(this).getRemoteService(IBuyApple.class);
+        IBinder buyAppleBinder = Andromeda.with(getApplicationContext()).getRemoteService(IBuyApple.class);
         if (null == buyAppleBinder) {
             Toast.makeText(this, "buyAppleBinder is null! May be the service has been cancelled!", Toast.LENGTH_SHORT).show();
             return;

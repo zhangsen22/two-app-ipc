@@ -31,6 +31,7 @@ import android.os.Looper;
 import android.text.TextUtils;
 
 import org.qiyi.video.svg.bean.BinderBean;
+import org.qiyi.video.svg.life.ApplicationLifecycle;
 import org.qiyi.video.svg.life.Lifecycle;
 import org.qiyi.video.svg.life.LifecycleListener;
 import org.qiyi.video.svg.log.Logger;
@@ -55,6 +56,20 @@ public class RemoteManager implements IRemoteManager, LifecycleListener {
     private Context appContext;
 
     private List<String> commuStubServiceNames = new ArrayList<>();
+
+    private static RemoteManager instance;
+
+    public static RemoteManager getInstance(Context context) {
+        if (null == instance) {
+            synchronized (RemoteManager.class) {
+                if (null == instance) {
+                    instance = new RemoteManager(context.getApplicationContext(),
+                            new ApplicationLifecycle());
+                }
+            }
+        }
+        return instance;
+    }
 
     public RemoteManager(Context context, final Lifecycle lifecycle) {
         this.appContext = context;
