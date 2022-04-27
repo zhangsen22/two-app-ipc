@@ -26,14 +26,10 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.8/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Andromeda-Lib/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Andromeda-Lib/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/dispatcher/DispatcherProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/dispatcher/DispatcherProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/dispatcher/DispatcherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/dispatcher/DispatcherService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/life/ActivityFragLifecycle.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/transfer/RemoteTransfer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/transfer/RemoteTransfer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/transfer/event/EventTransfer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/transfer/event/EventTransfer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/transfer/service/RemoteServiceTransfer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/transfer/service/RemoteServiceTransfer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/wang/imallen/blog/servicemanager/BananaActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/wang/imallen/blog/servicemanager/BananaActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/dispatcher/Dispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/dispatcher/Dispatcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/dispatcher/service/IServiceDispatcher.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/dispatcher/service/ServiceDispatcher.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/remote/RemoteManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/remote/RemoteManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,17 +204,17 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/remote/RemoteManager.java</url>
-          <line>127</line>
+          <line>103</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/remote/RemoteManager.java</url>
-          <line>100</line>
+          <line>76</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/transfer/RemoteTransfer.java</url>
-          <line>96</line>
+          <line>129</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
