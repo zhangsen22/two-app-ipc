@@ -44,7 +44,6 @@ import org.qiyi.video.svg.event.EventListener;
 import org.qiyi.video.svg.log.Logger;
 import org.qiyi.video.svg.transfer.event.EventTransfer;
 import org.qiyi.video.svg.transfer.event.IEventTransfer;
-import org.qiyi.video.svg.transfer.service.IRemoteServiceTransfer;
 import org.qiyi.video.svg.transfer.service.RemoteServiceTransfer;
 import org.qiyi.video.svg.utils.IOUtils;
 import org.qiyi.video.svg.utils.ServiceUtils;
@@ -52,7 +51,7 @@ import org.qiyi.video.svg.utils.ServiceUtils;
 /**
  * Created by wangallen on 2018/1/9.
  */
-public class RemoteTransfer extends IRemoteTransfer.Stub implements IRemoteServiceTransfer, IEventTransfer {
+public class RemoteTransfer extends IRemoteTransfer.Stub implements IEventTransfer {
 
     public static final int MAX_WAIT_TIME = 600;
 
@@ -125,7 +124,6 @@ public class RemoteTransfer extends IRemoteTransfer.Stub implements IRemoteServi
         }
     }
 
-    @Override
     public synchronized BinderBean getRemoteServiceBean(String serviceCanonicalName) {
         Logger.d("RemoteTransfer-->getRemoteServiceBean,pid=" + android.os.Process.myPid() + ",thread:" + Thread.currentThread().getName());
         BinderBean cacheBinderBean = serviceTransfer.getIBinderFromCache(context, serviceCanonicalName);
@@ -166,7 +164,6 @@ public class RemoteTransfer extends IRemoteTransfer.Stub implements IRemoteServi
         }
     }
 
-    @Override
     public synchronized void registerStubService(String serviceCanonicalName, IBinder stubBinder) {
         initDispatchProxyLocked();
         serviceTransfer.registerStubServiceLocked(serviceCanonicalName, stubBinder, context, dispatcherProxy, this);
@@ -178,7 +175,6 @@ public class RemoteTransfer extends IRemoteTransfer.Stub implements IRemoteServi
      *
      * @param serviceCanonicalName
      */
-    @Override
     public synchronized void unregisterStubService(String serviceCanonicalName) {
         initDispatchProxyLocked();
         serviceTransfer.unregisterStubServiceLocked(serviceCanonicalName, context, dispatcherProxy);
