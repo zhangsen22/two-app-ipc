@@ -85,29 +85,6 @@ public class RemoteManagerRetriever implements IRemoteManagerRetriever, Handler.
         handler = new Handler(Looper.getMainLooper(), this);
     }
 
-    @Override
-    public IRemoteManager get(Fragment fragment) {
-        Preconditions.checkNotNull(fragment.getActivity(), "you cannot start a load on a fragment before it is attached to Activity or after it is destroyed!");
-        if (Utils.isOnBackgroundThread()) {
-            return get(fragment.getActivity().getApplicationContext());
-        } else {
-            FragmentManager fm = fragment.getChildFragmentManager();
-            return getSupportFragmentManager(fragment.getActivity(), fm, fragment, fragment.isVisible());
-        }
-    }
-
-    @Override
-    public IRemoteManager get(android.app.Fragment fragment) {
-        if (fragment.getActivity() == null) {
-            throw new IllegalArgumentException("You cannot start bind action on a fragment before it is attached");
-        }
-        if (Utils.isOnBackgroundThread() || Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            return get(fragment.getActivity().getApplicationContext());
-        } else {
-            android.app.FragmentManager fm = fragment.getChildFragmentManager();
-            return getRemoteFragmentManager(fragment.getActivity(), fm, fragment, fragment.isVisible());
-        }
-    }
 
     private IRemoteManager getSupportFragmentManager(Context context, FragmentManager fm, Fragment parentHint, boolean isParentVisible) {
         SupportRemoteManagerFragment current = getSupportRemoteManagerFragment(fm, parentHint, isParentVisible);
@@ -237,36 +214,6 @@ public class RemoteManagerRetriever implements IRemoteManagerRetriever, Handler.
             }
         }
         return applicationManager;
-    }
-
-    @Override
-    public IRemoteManager get(View view) {
-        if (Utils.isOnBackgroundThread()) {
-            return get(view.getContext().getApplicationContext());
-        }
-        Preconditions.checkNotNull(view);
-        Preconditions.checkNotNull(view.getContext(), "Unable to obtain a request manager for a view without a Context");
-        Activity activity = findActivity(view.getContext());
-        //The view might be somewhere else, like a service
-        if (activity == null) {
-            return get(view.getContext().getApplicationContext());
-        }
-
-        //Support Fragments.
-        //Althouth the user might have non-support Fragments attached to FragmentActivity, searching
-        //for non-support Fragments is so expensive pre 0 and that should be rare enough that we
-        //prefer to just fall back to the Activity directly.
-        if (activity instanceof FragmentActivity) {
-            Fragment fragment = findSupportFragment(view, (FragmentActivity) activity);
-            return fragment != null ? get(fragment) : get(activity);
-        }
-
-        //Standard Fragments.
-        android.app.Fragment fragment = findFragment(view, activity);
-        if (fragment == null) {
-            return get(activity);
-        }
-        return get(fragment);
     }
 
     private Activity findActivity(Context context) {

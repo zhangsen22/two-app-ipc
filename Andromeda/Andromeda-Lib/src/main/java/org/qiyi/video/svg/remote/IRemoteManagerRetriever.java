@@ -36,16 +36,10 @@ import android.view.View;
 
 public interface IRemoteManagerRetriever {
 
-    IRemoteManager get(Fragment fragment);
-
-    IRemoteManager get(android.app.Fragment fragment);
-
     IRemoteManager get(FragmentActivity fragActivity);
 
     IRemoteManager get(Activity activity);
 
     IRemoteManager get(Context context);
-
-    IRemoteManager get(View view);
 
 }

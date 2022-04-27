@@ -119,15 +119,6 @@ public class Andromeda {
         RemoteTransfer.getInstance().unregisterStubService(serviceCanonicalName);
     }
 
-
-    public static IRemoteManager with(android.app.Fragment fragment) {
-        return getRetriever().get(fragment);
-    }
-
-    public static IRemoteManager with(Fragment fragment) {
-        return getRetriever().get(fragment);
-    }
-
     public static IRemoteManager with(FragmentActivity fragmentActivity) {
         return getRetriever().get(fragmentActivity);
     }
