@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="MissingDefaultResource">
+
+    <Button
+        android:id="@+id/registerremoteservicebtn"
+        android:text="注册远程服务"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/unregisterRemoteServiceBtn"
+        android:text="注销远程服务"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/useRemoteServiceBtn1"
+        android:text="在:banana进程使用远程服务(buyAppleInShop)"
+        android:textAllCaps="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/useRemoteServiceBtn2"
+        android:text="在:banana进程使用远程服务(buyAppleOnNet)"
+        android:textAllCaps="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
