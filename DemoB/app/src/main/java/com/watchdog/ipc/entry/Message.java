@@ -9,6 +9,7 @@ public class Message implements Parcelable {
     private boolean isSendSuccess;
 
     public Message() {
+
     }
 
     protected Message(Parcel in) {

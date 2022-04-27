@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.App;
 import com.watchdog.ipc.IConnectionService;
 import com.watchdog.ipc.IMessageService;
 import com.watchdog.ipc.IServiceManager;
@@ -29,15 +30,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnRegisterListener;
     private Button btnUnRegisterListener;
 
-    private IConnectionService connectionServiceProxy;
-    private IMessageService messageServiceProxy;
-    private IServiceManager serviceManagerProxy;
+    private App app;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        app = (App) getApplication();
 
         bottonConnect = findViewById(R.id.btn_connect);
         bottonDisConnect = findViewById(R.id.btn_disconnect);
@@ -52,33 +53,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSendMessage.setOnClickListener(this);
         btnRegisterListener.setOnClickListener(this);
         btnUnRegisterListener.setOnClickListener(this);
-
-        bindService();
     }
 
-    private void bindService() {
-        Intent mIntent = new Intent();
-        mIntent.setAction("com.watchdog.ipc.WatchDogService");
-        mIntent.setPackage("com.watchdog.ipc");
-//        mIntent.setComponent(new ComponentName("com.watchdog.ipc", "com.watchdog.ipc.WatchDogService"));
-        getApplicationContext().bindService(mIntent, new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-                serviceManagerProxy = IServiceManager.Stub.asInterface(service);
-                try {
-                    connectionServiceProxy = IConnectionService.Stub.asInterface(serviceManagerProxy.getService(IConnectionService.class.getSimpleName()));
-                    messageServiceProxy = IMessageService.Stub.asInterface(serviceManagerProxy.getService(IMessageService.class.getSimpleName()));
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
-            }
 
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-
-            }
-        }, Context.BIND_AUTO_CREATE);
-    }
 
 
     @Override
@@ -98,21 +75,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.btn_connect:
                 try {
-                    connectionServiceProxy.connection();
+                    app.getConnectionServiceProxy().connection();
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
                 break;
             case R.id.btn_disconnect:
                 try {
-                    connectionServiceProxy.disconnection();
+                    app.getConnectionServiceProxy().disconnection();
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
                 break;
             case R.id.btn_isconnect:
                 try {
-                    boolean connection = connectionServiceProxy.isConnection();
+                    boolean connection = app.getConnectionServiceProxy().isConnection();
                     Toast.makeText(this,String.valueOf(connection),Toast.LENGTH_SHORT).show();
                 } catch (RemoteException e) {
                     e.printStackTrace();
@@ -122,21 +99,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Message message = new Message();
                 message.setContent("message send from demoB");
                 try {
-                    messageServiceProxy.sendMessage(message);
+                    app.getMessageServiceProxy().sendMessage(message);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
                 break;
             case R.id.btn_register_listener:
                 try {
-                    messageServiceProxy.registMessageReceiveListener(messagereceiveListener);
+                    app.getMessageServiceProxy().registMessageReceiveListener(messagereceiveListener);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
                 break;
             case R.id.btn_unregister_listener:
                 try {
-                    messageServiceProxy.unRegistMessageReceiveListener(messagereceiveListener);
+                    app.getMessageServiceProxy().unRegistMessageReceiveListener(messagereceiveListener);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
