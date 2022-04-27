@@ -15,19 +15,55 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9a17274a-57b6-4660-af2b-775300620fb8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/aidl/com/watchdog/ipc/svg/IDispatcher.aidl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/aidl/com/watchdog/ipc/svg/IPCCallback.aidl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/aidl/com/watchdog/ipc/svg/IRemoteTransfer.aidl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/aidl/com/watchdog/ipc/svg/bean/BinderBean.aidl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/aidl/com/watchdog/ipc/svg/event/Event.aidl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/aidl/com/watchdog/ipc/svg/event/IBuyApple.aidl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/Andromeda.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/BinderWrapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/backup/EmergencyHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/backup/IEmergencyHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/bean/BinderBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/bean/ConnectionBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/callback/BaseCallback.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/config/Constants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/cursor/DispatcherCursor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/dispatcher/Dispatcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/dispatcher/DispatcherProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/dispatcher/DispatcherService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/dispatcher/event/EventDispatcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/dispatcher/event/IEventDispatcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/event/Event.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/event/EventListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/log/Logger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/remote/ConnectionManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/remote/IRemoteManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/remote/RemoteManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/transfer/RemoteTransfer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/transfer/event/EventTransfer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/transfer/event/IEventTransfer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/transfer/service/RemoteServiceTransfer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/utils/CollectionUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/utils/IOUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/utils/Preconditions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/utils/ProcessUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/utils/ServiceUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/utils/StubServiceMatcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/utils/Utils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8/javaCompile/jarAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/transfer/RemoteTransfer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/transfer/RemoteTransfer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/transfer/service/IRemoteServiceTransfer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/dispatcher/DispatcherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/dispatcher/DispatcherService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/life/ApplicationLifecycle.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/life/ApplicationLifecycle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/life/Lifecycle.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/life/Lifecycle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/life/LifecycleListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/svg/life/LifecycleListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/remote/RemoteManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/remote/RemoteManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,13 +238,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/remote/RemoteManager.java</url>
-          <line>103</line>
+          <line>70</line>
           <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/remote/RemoteManager.java</url>
-          <line>76</line>
-          <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/Andromeda-Lib/src/main/java/org/qiyi/video/svg/transfer/RemoteTransfer.java</url>

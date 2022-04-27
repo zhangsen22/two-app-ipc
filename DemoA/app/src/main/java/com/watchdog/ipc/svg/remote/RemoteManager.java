@@ -1,14 +1,19 @@
-package org.qiyi.video.svg.remote;
+package com.watchdog.ipc.svg.remote;
 
 import android.content.Context;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.text.TextUtils;
+
 import org.qiyi.video.svg.bean.BinderBean;
+import org.qiyi.video.svg.life.ApplicationLifecycle;
+import org.qiyi.video.svg.life.Lifecycle;
+import org.qiyi.video.svg.life.LifecycleListener;
 import org.qiyi.video.svg.log.Logger;
 import org.qiyi.video.svg.transfer.RemoteTransfer;
 import org.qiyi.video.svg.utils.Utils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +21,9 @@ import java.util.List;
  * Created by wangallen on 2018/3/26.
  */
 
-public class RemoteManager implements IRemoteManager {
+public class RemoteManager implements IRemoteManager, LifecycleListener {
+
+    private Lifecycle lifecycle;
 
     private Handler handler = new Handler(Looper.getMainLooper());
 
@@ -30,15 +37,29 @@ public class RemoteManager implements IRemoteManager {
         if (null == instance) {
             synchronized (RemoteManager.class) {
                 if (null == instance) {
-                    instance = new RemoteManager(context.getApplicationContext());
+                    instance = new RemoteManager(context.getApplicationContext(),
+                            new ApplicationLifecycle());
                 }
             }
         }
         return instance;
     }
 
-    public RemoteManager(Context context) {
+    public RemoteManager(Context context, final Lifecycle lifecycle) {
         this.appContext = context;
+        this.lifecycle = lifecycle;
+
+        if (Utils.isOnBackgroundThread()) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    lifecycle.addListener(RemoteManager.this);
+                }
+            });
+        } else {
+            lifecycle.addListener(this);
+        }
+
     }
 
     @Override
@@ -65,9 +86,19 @@ public class RemoteManager implements IRemoteManager {
         return binderBean.getBinder();
     }
 
-//    @Override
-//    public void onDestroy() {
-//        Logger.d(this.toString() + "-->onDestroy()");
-//        ConnectionManager.getInstance().unbindAction(appContext, commuStubServiceNames);
-//    }
+    @Override
+    public void onStart() {
+        Logger.d(this.toString() + "-->onStart()");
+    }
+
+    @Override
+    public void onStop() {
+        Logger.d(this.toString() + "-->onStop()");
+    }
+
+    @Override
+    public void onDestroy() {
+        Logger.d(this.toString() + "-->onDestroy()");
+        ConnectionManager.getInstance().unbindAction(appContext, commuStubServiceNames);
+    }
 }

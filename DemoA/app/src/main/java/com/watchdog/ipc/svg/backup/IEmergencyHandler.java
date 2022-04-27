@@ -22,16 +22,14 @@
 *        EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
 */
-package org.qiyi.video.svg.life;
+package com.watchdog.ipc.svg.backup;
+
+import android.content.Context;
 
 /**
- * Created by wangallen on 2018/3/27.
+ * Created by wangallen on 2018/4/18.
  */
 
-public interface Lifecycle {
-
-    void addListener(LifecycleListener listener);
-
-    void removeListener(LifecycleListener listener);
-
+public interface IEmergencyHandler {
+    void handleBinderDied(Context context, String serverProcessName);
 }

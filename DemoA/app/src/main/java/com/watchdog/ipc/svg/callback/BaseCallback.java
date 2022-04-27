@@ -22,17 +22,44 @@
 *        EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
 */
-package org.qiyi.video.svg.life;
+package com.watchdog.ipc.svg.callback;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.RemoteException;
+
+import org.qiyi.video.svg.IPCCallback;
 
 /**
- * Created by wangallen on 2018/3/27.
+ * Created by wangallen on 2018/1/17.
  */
 
-public interface LifecycleListener {
+public abstract class BaseCallback extends IPCCallback.Stub {
 
-    void onStart();
+    private Handler handler = new Handler(Looper.getMainLooper());
 
-    void onStop();
+    @Override
+    public final void onSuccess(final Bundle result) throws RemoteException {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                onSucceed(result);
+            }
+        });
+    }
 
-    void onDestroy();
+    @Override
+    public final void onFail(final String reason) throws RemoteException {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                onFailed(reason);
+            }
+        });
+    }
+
+    public abstract void onSucceed(Bundle result);
+
+    public abstract void onFailed(String reason);
 }

@@ -19,8 +19,7 @@
         </activity>
 
         <activity
-            android:name=".BananaActivity"
-            android:process=":banana" />
+            android:name=".BananaActivity" />
 
     </application>
 

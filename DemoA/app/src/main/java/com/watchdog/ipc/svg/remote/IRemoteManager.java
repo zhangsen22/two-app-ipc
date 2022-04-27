@@ -22,21 +22,26 @@
 *        EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
 */
-package org.qiyi.video.svg.life;
+package com.watchdog.ipc.svg.remote;
+
+import android.os.IBinder;
 
 /**
- * Created by wangallen on 2018/3/27.
+ * Created by wangallen on 2018/3/26.
  */
 
-public class ApplicationLifecycle implements Lifecycle{
+public interface IRemoteManager {
 
-    @Override
-    public void addListener(LifecycleListener listener) {
-        listener.onStart();
-    }
+    IBinder getRemoteService(Class<?> serviceClass);
 
-    @Override
-    public void removeListener(LifecycleListener listener) {
+    @Deprecated
+    IBinder getRemoteService(String serviceCanonicalName);
 
-    }
+    /*
+    void unbind(Class<?> serviceClass);
+
+    @Deprecated
+    void unbind(String serviceCanonicalName);
+    */
+
 }
