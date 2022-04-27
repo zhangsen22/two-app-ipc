@@ -1,7 +1,11 @@
-package com.watchdog.ipc;
+package com.watchdog.ipc.services;
 
 import android.os.Bundle;
 import android.os.RemoteException;
+
+import com.watchdog.ipc.IBuyApple;
+import com.watchdog.ipc.IPCCallback;
+import com.watchdog.ipc.Logger;
 
 public class BuyAppleImpl extends IBuyApple.Stub {
 

@@ -1,10 +1,14 @@
-package com.watchdog.ipc;
+package com.watchdog.ipc.services;
 
 import android.os.RemoteException;
 
+import com.watchdog.ipc.IMessageService;
+import com.watchdog.ipc.IPCCallback;
+import com.watchdog.ipc.MessagereceiveListener;
+import com.watchdog.ipc.WatchDogDispatcher;
 import com.watchdog.ipc.entry.Message;
 
-public class IMessageImpl extends IMessageService.Stub{
+public class IMessageImpl extends IMessageService.Stub {
 
     private static class SingletonInstance{
         private final static IMessageImpl S = new IMessageImpl();

@@ -1,10 +1,12 @@
-package com.watchdog.ipc;
+package com.watchdog.ipc.services;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 import androidx.annotation.Nullable;
+
+import com.watchdog.ipc.WatchDogDispatcher;
 
 /**
  * 管理链接

@@ -7,6 +7,8 @@ import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 
 import com.watchdog.ipc.entry.Message;
+import com.watchdog.ipc.services.BuyAppleImpl;
+import com.watchdog.ipc.services.IMessageImpl;
 
 public class WatchDogDispatcher {
     private static final String TAG = "Dispatcher";

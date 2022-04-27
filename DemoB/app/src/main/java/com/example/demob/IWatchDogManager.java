@@ -48,7 +48,7 @@ public class IWatchDogManager {
         }, Context.BIND_AUTO_CREATE);
     }
 
-    public <T extends IBinder> IBinder getRemoteService(Class<?> serviceClass) {
+    public IBinder getRemoteService(Class<?> serviceClass) {
         if (null == serviceClass) {
             return null;
         }

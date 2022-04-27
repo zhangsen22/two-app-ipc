@@ -17,7 +17,7 @@
         android:theme="@style/Theme.DemoA">
 
         <service
-            android:name=".WatchDogService"
+            android:name=".services.WatchDogService"
             android:enabled="true"
             android:exported="true">
 
