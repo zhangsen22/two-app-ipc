@@ -167,7 +167,9 @@ public class WatchDogService extends Service {
                 return connectionService.asBinder();
             }else if(IMessageService.class.getSimpleName().equals(serviceName)){
                 return messageService.asBinder();
-            }else {
+            }else if(IBuyApple.class.getSimpleName().equals(serviceName)){
+                return BuyAppleImpl.getInstance().asBinder();
+            } else {
                 return null;
             }
         }

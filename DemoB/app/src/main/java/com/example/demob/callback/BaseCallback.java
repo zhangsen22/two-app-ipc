@@ -22,28 +22,45 @@
 *        EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
 */
-package com.example.demob;
+package com.example.demob.callback;
 
-import android.util.Log;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.RemoteException;
+
+import com.watchdog.ipc.IPCCallback;
+
 
 /**
- * Created by wangallen on 2018/1/15.
+ * Created by wangallen on 2018/1/17.
  */
 
-public class Logger {
+public abstract class BaseCallback extends IPCCallback.Stub {
 
-    private static final String TAG = "Andromeda";
+    private Handler handler = new Handler(Looper.getMainLooper());
 
-    public static void i(String msg) {
-        Log.i(TAG, msg);
+    @Override
+    public final void onSuccess(final Bundle result) throws RemoteException {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                onSucceed(result);
+            }
+        });
     }
 
-    public static void d(String msg) {
-        Log.d(TAG, msg);
+    @Override
+    public final void onFail(final String reason) throws RemoteException {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                onFailed(reason);
+            }
+        });
     }
 
-    public static void e(String msg) {
-        Log.e(TAG, msg);
-    }
+    public abstract void onSucceed(Bundle result);
 
+    public abstract void onFailed(String reason);
 }

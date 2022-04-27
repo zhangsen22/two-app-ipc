@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.App;
+import com.example.demob.callback.BaseCallback;
 import com.watchdog.ipc.IConnectionService;
 import com.watchdog.ipc.IMessageService;
 import com.watchdog.ipc.IServiceManager;
@@ -29,16 +30,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnSendMessage;
     private Button btnRegisterListener;
     private Button btnUnRegisterListener;
-
-    private App app;
-
+    private Button btn_buy_apple;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        app = (App) getApplication();
 
         bottonConnect = findViewById(R.id.btn_connect);
         bottonDisConnect = findViewById(R.id.btn_disconnect);
@@ -46,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSendMessage = findViewById(R.id.btn_send_message);
         btnRegisterListener = findViewById(R.id.btn_register_listener);
         btnUnRegisterListener = findViewById(R.id.btn_unregister_listener);
+        btn_buy_apple = findViewById(R.id.btn_buy_apple);
 
         bottonConnect.setOnClickListener(this);
         bottonDisConnect.setOnClickListener(this);
@@ -53,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSendMessage.setOnClickListener(this);
         btnRegisterListener.setOnClickListener(this);
         btnUnRegisterListener.setOnClickListener(this);
+        btn_buy_apple.setOnClickListener(this);
     }
 
 
@@ -75,21 +74,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.btn_connect:
                 try {
-                    app.getConnectionServiceProxy().connection();
+                    IWatchDogManager.getInstance().getConnectionServiceProxy().connection();
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
                 break;
             case R.id.btn_disconnect:
                 try {
-                    app.getConnectionServiceProxy().disconnection();
+                    IWatchDogManager.getInstance().getConnectionServiceProxy().disconnection();
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
                 break;
             case R.id.btn_isconnect:
                 try {
-                    boolean connection = app.getConnectionServiceProxy().isConnection();
+                    boolean connection = IWatchDogManager.getInstance().getConnectionServiceProxy().isConnection();
                     Toast.makeText(this,String.valueOf(connection),Toast.LENGTH_SHORT).show();
                 } catch (RemoteException e) {
                     e.printStackTrace();
@@ -99,21 +98,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Message message = new Message();
                 message.setContent("message send from demoB");
                 try {
-                    app.getMessageServiceProxy().sendMessage(message);
+                    IWatchDogManager.getInstance().getMessageServiceProxy().sendMessage(message);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
                 break;
             case R.id.btn_register_listener:
                 try {
-                    app.getMessageServiceProxy().registMessageReceiveListener(messagereceiveListener);
+                    IWatchDogManager.getInstance().getMessageServiceProxy().registMessageReceiveListener(messagereceiveListener);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
                 break;
             case R.id.btn_unregister_listener:
                 try {
-                    app.getMessageServiceProxy().unRegistMessageReceiveListener(messagereceiveListener);
+                    IWatchDogManager.getInstance().getMessageServiceProxy().unRegistMessageReceiveListener(messagereceiveListener);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.btn_buy_apple:
+                try {
+                    IWatchDogManager.getInstance().getBuyAppleProxy().buyAppleOnNet(10, new BaseCallback() {
+                        @Override
+                        public void onSucceed(Bundle result) {
+                            int appleNum = result.getInt("Result", 0);
+                            Toast.makeText(MainActivity.this,
+                                    "got remote service with callback in other process(:banana),appleNum:" + appleNum, Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onFailed(String reason) {
+                            Toast.makeText(MainActivity.this, "got remote service failed with callback!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
