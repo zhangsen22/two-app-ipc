@@ -14,6 +14,8 @@ import com.watchdog.ipc.IServiceManager;
 
 public class IWatchDogManager {
     private static final String TAG = "IWatchDogManager";
+    private static final String WATCHDOG_ACTION = "com.watchdog.ipc.WatchDogService";
+    private static final String WATCHDOG_PACKAGE = "com.watchdog.ipc";
 
     private IServiceManager serviceManagerProxy;
 
@@ -30,22 +32,25 @@ public class IWatchDogManager {
         return SingletonInstance.S;
     }
 
+    ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.d(TAG,this.toString() + "-->onServiceConnected");
+            serviceManagerProxy = IServiceManager.Stub.asInterface(service);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            Log.d(TAG,this.toString() + "-->onServiceDisconnected");
+        }
+    };
+
     public <T extends IBinder> void registerRemoteService(Context context, String serviceCanonicalName, T stubBinder) {
         Intent mIntent = new Intent();
-        mIntent.setAction("com.watchdog.ipc.WatchDogService");
-        mIntent.setPackage("com.watchdog.ipc");
-//        mIntent.setComponent(new ComponentName("com.watchdog.ipc", "com.watchdog.ipc.WatchDogService"));
-        context.bindService(mIntent, new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-                serviceManagerProxy = IServiceManager.Stub.asInterface(service);
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-
-            }
-        }, Context.BIND_AUTO_CREATE);
+        mIntent.setAction(WATCHDOG_ACTION);
+        mIntent.setPackage(WATCHDOG_PACKAGE);
+//        mIntent.setComponent(new ComponentName(WATCHDOG_PACKAGE, WATCHDOG_ACTION));
+        context.bindService(mIntent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
     public IBinder getRemoteService(Class<?> serviceClass) {

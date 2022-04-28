@@ -15,12 +15,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9a17274a-57b6-4660-af2b-775300620fb8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/6.8/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../DemoA/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoA/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/BuyAppleImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/services/BuyAppleImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/IMessageImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/services/IMessageImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/WatchDogDispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/WatchDogDispatcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/WatchDogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/services/WatchDogService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/services/WatchDogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/WatchDogService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../DemoB/app/src/main/java/com/example/demob/IWatchDogManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoB/app/src/main/java/com/example/demob/IWatchDogManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

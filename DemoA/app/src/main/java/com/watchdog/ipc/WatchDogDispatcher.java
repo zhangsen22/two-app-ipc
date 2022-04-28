@@ -11,7 +11,7 @@ import com.watchdog.ipc.services.BuyAppleImpl;
 import com.watchdog.ipc.services.IMessageImpl;
 
 public class WatchDogDispatcher {
-    private static final String TAG = "Dispatcher";
+    private static final String TAG = "WatchDogDispatcher";
 
     private Handler handler = new Handler(Looper.getMainLooper());
 
