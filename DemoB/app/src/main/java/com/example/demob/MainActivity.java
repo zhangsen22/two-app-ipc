@@ -2,10 +2,15 @@ package com.example.demob;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.demob.callback.BaseCallback;
@@ -38,6 +43,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnRegisterListener.setOnClickListener(this);
         btnUnRegisterListener.setOnClickListener(this);
         btn_buy_apple.setOnClickListener(this);
+
+
+        TextView text = findViewById(R.id.text);
+        text.setText("versionCode: "+getVersionCode(this,"com.example.demob")+"  versionName: "+getVersionName(this,"com.example.demob"));
+
     }
 
 
@@ -122,5 +132,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             });
         }
     };
+
+    /**
+     * 通过包名获取PackageInfo
+     * @param ctx
+     * @param packageName
+     * @return
+     */
+    public PackageInfo getPackageInfo(Context ctx, String packageName){
+        if(TextUtils.isEmpty(packageName)){
+            return null;
+        }
+        PackageManager pm = ctx.getPackageManager();
+        try {
+            PackageInfo packageInfo = pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+            return packageInfo;
+        }catch (Throwable ignore){
+
+        }
+        return null;
+    }
+
+    /**
+     * 获取版本号
+     * @param ctx
+     * @param packageName
+     * @return
+     */
+    public int getVersionCode(Context ctx,String packageName){
+        PackageInfo packageInfo = getPackageInfo(ctx, packageName);
+        if(packageInfo != null){
+            return packageInfo.versionCode;
+        }
+        return -1;
+    }
+
+    /**
+     * 获取版本名
+     * @param ctx
+     * @param packageName
+     * @return
+     */
+    public String getVersionName(Context ctx,String packageName){
+        PackageInfo packageInfo = getPackageInfo(ctx, packageName);
+        if(packageInfo != null){
+            return packageInfo.versionName;
+        }
+        return null;
+    }
 
 }

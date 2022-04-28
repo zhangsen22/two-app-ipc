@@ -66,6 +66,9 @@ public class IWatchDogManager {
         @Override
         public void onServiceDisconnected(ComponentName name) {
             Log.d(TAG, this.toString() + "-->onServiceDisconnected");
+            /**
+             * service端断开连接
+             */
             isBind = false;
             mCrashService.clear();
         }

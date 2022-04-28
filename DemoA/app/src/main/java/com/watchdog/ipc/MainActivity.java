@@ -1,7 +1,6 @@
 package com.watchdog.ipc;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +13,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         Button button = findViewById(R.id.btn_open_b);
+        Button btn_install = findViewById(R.id.btn_install);
+        Button btn_uninstall = findViewById(R.id.btn_uninstall);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -24,6 +27,22 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "没有安装" + "",Toast.LENGTH_LONG).show();
                     //TODO  下载操作
                 }
+            }
+        });
+
+
+        btn_install.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this,"开始静默安装",Toast.LENGTH_LONG).show();
+//                SignwayManager.getInstance(getApplication()).silentInstallApk("/mnt/sdcard/test.apk");
+            }
+        });
+
+        btn_uninstall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this,"开始静默卸载",Toast.LENGTH_LONG).show();
             }
         });
     }
