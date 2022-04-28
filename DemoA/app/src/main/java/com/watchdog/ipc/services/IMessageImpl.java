@@ -1,5 +1,6 @@
 package com.watchdog.ipc.services;
 
+import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 
 import com.watchdog.ipc.IMessageService;
@@ -39,6 +40,8 @@ public class IMessageImpl extends IMessageService.Stub {
     public void unRegistMessageReceiveListener(MessagereceiveListener messagereceiveListener) throws RemoteException {
         if(messagereceiveListener != null) {
             WatchDogDispatcher.getInstance().getMessagereceiveListenerList().unregister(messagereceiveListener);
+        }else {
+            WatchDogDispatcher.getInstance().getMessagereceiveListenerList().kill();
         }
     }
 }

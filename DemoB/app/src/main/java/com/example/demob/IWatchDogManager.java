@@ -30,9 +30,10 @@ public class IWatchDogManager {
 
     }
 
-    private static class SingletonInstance{
+    private static class SingletonInstance {
         private final static IWatchDogManager S = new IWatchDogManager();
     }
+
     // 3 返回对象
     public static IWatchDogManager getInstance() {
         return SingletonInstance.S;
@@ -42,19 +43,19 @@ public class IWatchDogManager {
     ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            Log.d(TAG,this.toString() + "-->onServiceConnected");
+            Log.d(TAG, this.toString() + "-->onServiceConnected");
             isBind = true;
             IServiceManager serviceManagerProxy = IServiceManager.Stub.asInterface(service);
-            if(serviceManagerProxy != null){
-                mCrashService.put(IServiceManager.class,serviceManagerProxy);
+            if (serviceManagerProxy != null) {
+                mCrashService.put(IServiceManager.class, serviceManagerProxy);
                 try {
                     IMessageService messageServiceProxy = IMessageService.Stub.asInterface(serviceManagerProxy.getService(IMessageService.class.getSimpleName()));
-                    if(messageServiceProxy != null){
-                        mCrashService.put(IMessageService.class,messageServiceProxy);
+                    if (messageServiceProxy != null) {
+                        mCrashService.put(IMessageService.class, messageServiceProxy);
                     }
                     IBuyApple buyAppleServiceProxy = IBuyApple.Stub.asInterface(serviceManagerProxy.getService(IBuyApple.class.getSimpleName()));
-                    if(buyAppleServiceProxy != null){
-                        mCrashService.put(IBuyApple.class,buyAppleServiceProxy);
+                    if (buyAppleServiceProxy != null) {
+                        mCrashService.put(IBuyApple.class, buyAppleServiceProxy);
                     }
                 } catch (RemoteException e) {
                     e.printStackTrace();
@@ -64,7 +65,7 @@ public class IWatchDogManager {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            Log.d(TAG,this.toString() + "-->onServiceDisconnected");
+            Log.d(TAG, this.toString() + "-->onServiceDisconnected");
             isBind = false;
             mCrashService.clear();
         }
@@ -78,7 +79,21 @@ public class IWatchDogManager {
         context.bindService(mIntent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
-    public  <T extends android.os.IInterface> T getRemoteService(@NonNull Class<T> serviceClass) {
+    public <T extends IBinder> void unRegisterRemoteService(Context context, String serviceCanonicalName, T stubBinder) {
+        if (isBind) {
+            try {
+                IMessageService remoteService = getRemoteService(IMessageService.class);
+                if(remoteService != null){
+                    remoteService.unRegistMessageReceiveListener(null);//全部注销监听
+                }
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            context.unbindService(serviceConnection);
+        }
+    }
+
+    public <T extends android.os.IInterface> T getRemoteService(@NonNull Class<T> serviceClass) {
         if (mCrashService == null) {
             throw new IllegalStateException("aidl no connect you must connect service");
         }
@@ -99,7 +114,7 @@ public class IWatchDogManager {
 
 
         String simpleName = serviceClass.getSimpleName();
-        Log.d(TAG,this.toString() + "-->getRemoteService,serviceName:" + simpleName);
+        Log.d(TAG, this.toString() + "-->getRemoteService,serviceName:" + simpleName);
 
         return serviceClass.cast(obj);
     }
