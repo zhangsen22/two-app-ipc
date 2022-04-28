@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.demob.callback.BaseCallback;
+import com.watchdog.ipc.IBuyApple;
+import com.watchdog.ipc.IMessageService;
 import com.watchdog.ipc.MessagereceiveListener;
 import com.watchdog.ipc.entry.Message;
 
@@ -60,40 +62,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Message message = new Message();
                 message.setContent("message send from demoB");
                 try {
-                    IWatchDogManager.getInstance().getMessageServiceProxy().sendMessage(message);
+                    IMessageService remoteService = IWatchDogManager.getInstance().getRemoteService(IMessageService.class);
+                    if(remoteService != null){
+                        remoteService.sendMessage(message);
+                    }
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
                 break;
             case R.id.btn_register_listener:
                 try {
-                    IWatchDogManager.getInstance().getMessageServiceProxy().registMessageReceiveListener(messagereceiveListener);
+                    IMessageService remoteService = IWatchDogManager.getInstance().getRemoteService(IMessageService.class);
+                    remoteService.registMessageReceiveListener(messagereceiveListener);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
                 break;
             case R.id.btn_unregister_listener:
                 try {
-                    IWatchDogManager.getInstance().getMessageServiceProxy().unRegistMessageReceiveListener(messagereceiveListener);
+                    IMessageService remoteService = IWatchDogManager.getInstance().getRemoteService(IMessageService.class);
+                    remoteService.unRegistMessageReceiveListener(messagereceiveListener);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
                 break;
             case R.id.btn_buy_apple:
                 try {
-                    IWatchDogManager.getInstance().getBuyAppleProxy().buyAppleOnNet(10, new BaseCallback() {
-                        @Override
-                        public void onSucceed(Bundle result) {
-                            int appleNum = result.getInt("Result", 0);
-                            Toast.makeText(MainActivity.this,
-                                    "got remote service with callback in other process(:banana),appleNum:" + appleNum, Toast.LENGTH_SHORT).show();
-                        }
+                    IBuyApple remoteService = IWatchDogManager.getInstance().getRemoteService(IBuyApple.class);
+                    if(remoteService != null){
+                        remoteService.buyAppleOnNet(10, new BaseCallback() {
+                            @Override
+                            public void onSucceed(Bundle result) {
+                                int appleNum = result.getInt("Result", 0);
+                                Toast.makeText(MainActivity.this,
+                                        "got remote service with callback in other process(:banana),appleNum:" + appleNum, Toast.LENGTH_SHORT).show();
+                            }
 
-                        @Override
-                        public void onFailed(String reason) {
-                            Toast.makeText(MainActivity.this, "got remote service failed with callback!", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                            @Override
+                            public void onFailed(String reason) {
+                                Toast.makeText(MainActivity.this, "got remote service failed with callback!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }

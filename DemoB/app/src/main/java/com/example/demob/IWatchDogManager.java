@@ -6,18 +6,24 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import com.watchdog.ipc.IBuyApple;
 import com.watchdog.ipc.IMessageService;
 import com.watchdog.ipc.IServiceManager;
+
+import java.util.concurrent.ConcurrentHashMap;
 
 public class IWatchDogManager {
     private static final String TAG = "IWatchDogManager";
     private static final String WATCHDOG_ACTION = "com.watchdog.ipc.WatchDogService";
     private static final String WATCHDOG_PACKAGE = "com.watchdog.ipc";
 
-    private IServiceManager serviceManagerProxy;
+    private boolean isBind = false;
+
+    private ConcurrentHashMap<Class<? extends android.os.IInterface>, android.os.IInterface> mCrashService = new ConcurrentHashMap<>();//缓存创建连接后的service
 
     //private
     private IWatchDogManager() {
@@ -32,16 +38,35 @@ public class IWatchDogManager {
         return SingletonInstance.S;
     }
 
+
     ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             Log.d(TAG,this.toString() + "-->onServiceConnected");
-            serviceManagerProxy = IServiceManager.Stub.asInterface(service);
+            isBind = true;
+            IServiceManager serviceManagerProxy = IServiceManager.Stub.asInterface(service);
+            if(serviceManagerProxy != null){
+                mCrashService.put(IServiceManager.class,serviceManagerProxy);
+                try {
+                    IMessageService messageServiceProxy = IMessageService.Stub.asInterface(serviceManagerProxy.getService(IMessageService.class.getSimpleName()));
+                    if(messageServiceProxy != null){
+                        mCrashService.put(IMessageService.class,messageServiceProxy);
+                    }
+                    IBuyApple buyAppleServiceProxy = IBuyApple.Stub.asInterface(serviceManagerProxy.getService(IBuyApple.class.getSimpleName()));
+                    if(buyAppleServiceProxy != null){
+                        mCrashService.put(IBuyApple.class,buyAppleServiceProxy);
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
             Log.d(TAG,this.toString() + "-->onServiceDisconnected");
+            isBind = false;
+            mCrashService.clear();
         }
     };
 
@@ -53,38 +78,29 @@ public class IWatchDogManager {
         context.bindService(mIntent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
-    public IBinder getRemoteService(Class<?> serviceClass) {
-        if (null == serviceClass) {
-            return null;
+    public  <T extends android.os.IInterface> T getRemoteService(@NonNull Class<T> serviceClass) {
+        if (mCrashService == null) {
+            throw new IllegalStateException("aidl no connect you must connect service");
         }
 
-            String simpleName = serviceClass.getSimpleName();
+        if (null == serviceClass) {
+            throw new IllegalStateException("aidl no connect you must connect service");
+        }
 
-            Log.d(TAG,this.toString() + "-->getRemoteService,serviceName:" + simpleName);
-            if (TextUtils.isEmpty(simpleName)) {
-                return null;
-            }
-            if (serviceManagerProxy == null) {
-                Log.e(TAG,"Found no binder for "+simpleName+"! Please check you have register implementation for it or proguard reasons!");
-                return null;
-            }
-            try {
-                return serviceManagerProxy.getService(simpleName);
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
+        if (!mCrashService.containsKey(serviceClass)) {
+            throw new RuntimeException("Not found " + serviceClass.getSimpleName() + "   in this map!");
+        }
 
-        return null;
 
-    }
+        android.os.IInterface obj = (android.os.IInterface) mCrashService.get(serviceClass);
+        if (obj == null) {
+            throw new RuntimeException("found " + serviceClass.getSimpleName() + " in this map is null !");
+        }
 
-    public IMessageService getMessageServiceProxy(){
-        IMessageService iMessageService = IMessageService.Stub.asInterface(getRemoteService(IMessageService.class));
-        return iMessageService;
-    }
 
-    public IBuyApple getBuyAppleProxy() {
-        IBuyApple buyApple = IBuyApple.Stub.asInterface(getRemoteService(IBuyApple.class));
-        return buyApple;
+        String simpleName = serviceClass.getSimpleName();
+        Log.d(TAG,this.toString() + "-->getRemoteService,serviceName:" + simpleName);
+
+        return serviceClass.cast(obj);
     }
 }
