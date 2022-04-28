@@ -1,8 +1,6 @@
 package com.watchdog.ipc.services;
 
-import android.os.RemoteCallbackList;
 import android.os.RemoteException;
-
 import com.watchdog.ipc.IMessageService;
 import com.watchdog.ipc.IPCCallback;
 import com.watchdog.ipc.MessagereceiveListener;
