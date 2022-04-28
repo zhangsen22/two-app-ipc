@@ -14,11 +14,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9a17274a-57b6-4660-af2b-775300620fb8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/services/IMessageImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoA/app/src/main/java/com/watchdog/ipc/services/IMessageImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DemoB/app/src/main/java/com/example/demob/IWatchDogManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DemoB/app/src/main/java/com/example/demob/IWatchDogManager.java" afterDir="false" />
-    </list>
+    <list default="true" id="9a17274a-57b6-4660-af2b-775300620fb8" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
