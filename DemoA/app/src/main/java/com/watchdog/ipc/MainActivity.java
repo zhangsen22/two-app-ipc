@@ -45,5 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,"开始静默卸载",Toast.LENGTH_LONG).show();
             }
         });
+
+//        LaunchAppManager.getInstance().
     }
 }

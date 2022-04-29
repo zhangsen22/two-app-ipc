@@ -49,9 +49,15 @@ public class IWatchDogManager {
                     if (messageServiceProxy != null) {
                         mCrashService.put(IMessageService.class, messageServiceProxy);
                     }
+
                     IBuyApple buyAppleServiceProxy = IBuyApple.Stub.asInterface(serviceManagerProxy.getService(IBuyApple.class.getSimpleName()));
                     if (buyAppleServiceProxy != null) {
                         mCrashService.put(IBuyApple.class, buyAppleServiceProxy);
+                    }
+
+                    IAppRunningListener appRunningListenerProxy = IAppRunningListener.Stub.asInterface(serviceManagerProxy.getService(IAppRunningListener.class.getSimpleName()));
+                    if (appRunningListenerProxy != null) {
+                        mCrashService.put(IAppRunningListener.class, appRunningListenerProxy);
                     }
                 } catch (RemoteException e) {
                     e.printStackTrace();

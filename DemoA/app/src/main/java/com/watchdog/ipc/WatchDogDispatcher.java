@@ -7,6 +7,7 @@ import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 
 import com.watchdog.ipc.entry.Message;
+import com.watchdog.ipc.services.AppRunningImpl;
 import com.watchdog.ipc.services.BuyAppleImpl;
 import com.watchdog.ipc.services.IMessageImpl;
 
@@ -47,6 +48,8 @@ public class WatchDogDispatcher {
                 return IMessageImpl.getInstance().asBinder();
             }else if(IBuyApple.class.getSimpleName().equals(serviceName)){
                 return BuyAppleImpl.getInstance().asBinder();
+            } else if(IAppRunningListener.class.getSimpleName().equals(serviceName)){
+                return AppRunningImpl.getInstance().asBinder();
             } else {
                 return null;
             }
