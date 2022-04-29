@@ -2,7 +2,7 @@ package com.example;
 
 import android.app.Application;
 
-import com.example.demob.IWatchDogManager;
+import com.watchdog.ipc.IWatchDogManager;
 
 
 public class App extends Application {

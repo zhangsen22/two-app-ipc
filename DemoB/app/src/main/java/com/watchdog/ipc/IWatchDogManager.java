@@ -1,4 +1,4 @@
-package com.example.demob;
+package com.watchdog.ipc;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -9,10 +9,6 @@ import android.os.RemoteException;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-
-import com.watchdog.ipc.IBuyApple;
-import com.watchdog.ipc.IMessageService;
-import com.watchdog.ipc.IServiceManager;
 
 import java.util.concurrent.ConcurrentHashMap;
 
