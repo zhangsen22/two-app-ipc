@@ -11,14 +11,14 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    private PackageInstalledReceiver packageInstalledReceiver;
+//    private PackageInstalledReceiver packageInstalledReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        packageInstalledReceiver = new PackageInstalledReceiver();
-        register();
+//        packageInstalledReceiver = new PackageInstalledReceiver();
+//        register();
 
         Button button = findViewById(R.id.btn_open_b);
         Button btn_install = findViewById(R.id.btn_install);
@@ -59,16 +59,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(packageInstalledReceiver);
+//        unregisterReceiver(packageInstalledReceiver);
     }
 
-    private void register() {
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
-        intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
-        intentFilter.addAction(Intent.ACTION_PACKAGE_REPLACED);
-        intentFilter.addDataScheme("package");
-        registerReceiver(packageInstalledReceiver, intentFilter);
-
-    }
+//    private void register() {
+//        IntentFilter intentFilter = new IntentFilter();
+//        intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
+//        intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+//        intentFilter.addAction(Intent.ACTION_PACKAGE_REPLACED);
+//        intentFilter.addDataScheme("package");
+//        registerReceiver(packageInstalledReceiver, intentFilter);
+//
+//    }
 }
