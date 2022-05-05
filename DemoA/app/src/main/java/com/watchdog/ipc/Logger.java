@@ -32,7 +32,7 @@ import android.util.Log;
 
 public class Logger {
 
-    private static final String TAG = "Andromeda";
+    private static final String TAG = "WatchDog";
 
     public static void i(String msg) {
         Log.i(TAG, msg);

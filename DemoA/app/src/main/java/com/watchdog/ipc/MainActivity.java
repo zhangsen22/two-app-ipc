@@ -1,14 +1,14 @@
 package com.watchdog.ipc;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.signwaymanager.SignwayManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.watchdog.ipc.interfaces.OnPackagedDeleteObserver;
+import com.watchdog.ipc.interfaces.OnPackagedInstallObserver;
 
 public class MainActivity extends AppCompatActivity {
 //    private PackageInstalledReceiver packageInstalledReceiver;
@@ -41,7 +41,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this,"开始静默安装",Toast.LENGTH_LONG).show();
-                SignwayManager.getInstance(getApplication()).silentInstallApk("/mnt/sdcard/test.apk");
+                LaunchAppManager.getInstance().installApk(getApplicationContext(), "/mnt/sdcard/test.apk", new OnPackagedInstallObserver() {
+                    @Override
+                    public void packageInstalled(String packageName) {
+                        Logger.i("packageName: "+packageName);
+                        LaunchAppManager.getInstance().openPackage(MainActivity.this,packageName);
+                    }
+                });
+//                SignwayManager.getInstance(getApplication()).silentInstallApk("/mnt/sdcard/test.apk");
             }
         });
 
@@ -49,7 +56,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this,"开始静默卸载",Toast.LENGTH_LONG).show();
-                SignwayManager.getInstance(getApplication()).silentUninstallApk1("com.example.demob");
+//                SignwayManager.getInstance(getApplication()).silentUninstallApk1("com.example.demob");
+                LaunchAppManager.getInstance().unInstallApk(getApplicationContext(), "com.example.demob", new OnPackagedDeleteObserver() {
+                    @Override
+                    public void packageDeleted(String packageName) {
+
+                    }
+                });
             }
         });
 
