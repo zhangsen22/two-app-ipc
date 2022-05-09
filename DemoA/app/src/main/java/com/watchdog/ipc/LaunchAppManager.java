@@ -99,6 +99,7 @@ public class LaunchAppManager {
      * @param packagename apk包名
      */
     public void unInstallApk(Context context, String packagename, OnPackagedDeleteObserver onPackagedDeleteObserver) {
+        PackageInfoManager.killProcess(context,packagename);//先杀死进程
         PackageManager pm = context.getPackageManager();
         Class<?>[] uninstalltypes = new Class[] {String.class, IPackageDeleteObserver.class, int.class};
         try {

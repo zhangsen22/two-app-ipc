@@ -19,6 +19,7 @@ public class WatchDogService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.i(TAG, "[WatchDogService] onCreate");
+        WatchDogDispatcher.getInstance().onCreate();
     }
 
     @Nullable

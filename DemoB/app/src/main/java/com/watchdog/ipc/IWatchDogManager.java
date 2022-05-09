@@ -10,6 +10,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.watchdog.ipc.callback.ClientDiedCallBack;
+import com.watchdog.ipc.entry.AppInfo;
+
 import java.util.concurrent.ConcurrentHashMap;
 
 public class IWatchDogManager {
@@ -40,29 +43,39 @@ public class IWatchDogManager {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             Log.d(TAG, this.toString() + "-->onServiceConnected");
-            isBind = true;
-            IServiceManager serviceManagerProxy = IServiceManager.Stub.asInterface(service);
-            if (serviceManagerProxy != null) {
-                mCrashService.put(IServiceManager.class, serviceManagerProxy);
-                try {
-                    IMessageService messageServiceProxy = IMessageService.Stub.asInterface(serviceManagerProxy.getService(IMessageService.class.getSimpleName()));
-                    if (messageServiceProxy != null) {
-                        mCrashService.put(IMessageService.class, messageServiceProxy);
-                    }
+//            synchronized (IWatchDogManager.class) {
+                isBind = true;
+                IServiceManager serviceManagerProxy = IServiceManager.Stub.asInterface(service);
+                if (serviceManagerProxy != null) {
+                    mCrashService.put(IServiceManager.class, serviceManagerProxy);
+                    try {
+                        IMessageService messageServiceProxy = IMessageService.Stub.asInterface(serviceManagerProxy.getService(IMessageService.class.getSimpleName()));
+                        if (messageServiceProxy != null) {
+                            mCrashService.put(IMessageService.class, messageServiceProxy);
+                        }
 
-                    IBuyApple buyAppleServiceProxy = IBuyApple.Stub.asInterface(serviceManagerProxy.getService(IBuyApple.class.getSimpleName()));
-                    if (buyAppleServiceProxy != null) {
-                        mCrashService.put(IBuyApple.class, buyAppleServiceProxy);
-                    }
+                        IBuyApple buyAppleServiceProxy = IBuyApple.Stub.asInterface(serviceManagerProxy.getService(IBuyApple.class.getSimpleName()));
+                        if (buyAppleServiceProxy != null) {
+                            mCrashService.put(IBuyApple.class, buyAppleServiceProxy);
+                        }
 
-                    IAppRunningListener appRunningListenerProxy = IAppRunningListener.Stub.asInterface(serviceManagerProxy.getService(IAppRunningListener.class.getSimpleName()));
-                    if (appRunningListenerProxy != null) {
-                        mCrashService.put(IAppRunningListener.class, appRunningListenerProxy);
+                        IAppRunningListener appRunningListenerProxy = IAppRunningListener.Stub.asInterface(serviceManagerProxy.getService(IAppRunningListener.class.getSimpleName()));
+                        if (appRunningListenerProxy != null) {
+                            mCrashService.put(IAppRunningListener.class, appRunningListenerProxy);
+                        }
+
+                        IClientDiedService iClientDiedService = IClientDiedService.Stub.asInterface(serviceManagerProxy.getService(IClientDiedService.class.getSimpleName()));
+                        if (iClientDiedService != null) {
+                            AppInfo appInfo = new AppInfo();
+                            appInfo.setPackageName("com.example.demob");
+                            iClientDiedService.registerClientCallback(new ClientDiedCallBack(),appInfo);
+                            mCrashService.put(IAppRunningListener.class, iClientDiedService);
+                        }
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
                     }
-                } catch (RemoteException e) {
-                    e.printStackTrace();
                 }
-            }
+//            }
         }
 
         @Override

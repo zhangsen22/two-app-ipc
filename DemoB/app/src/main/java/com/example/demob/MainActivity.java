@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnRegisterListener;
     private Button btnUnRegisterListener;
     private Button btn_buy_apple;
+    private Button btn_java_crash;
+    private Button btn_anr_crash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +41,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnRegisterListener = findViewById(R.id.btn_register_listener);
         btnUnRegisterListener = findViewById(R.id.btn_unregister_listener);
         btn_buy_apple = findViewById(R.id.btn_buy_apple);
+        btn_java_crash = findViewById(R.id.btn_java_crash);
+        btn_anr_crash = findViewById(R.id.btn_anr_crash);
 
 
         btnSendMessage.setOnClickListener(this);
         btnRegisterListener.setOnClickListener(this);
         btnUnRegisterListener.setOnClickListener(this);
         btn_buy_apple.setOnClickListener(this);
+        btn_java_crash.setOnClickListener(this);
+        btn_anr_crash.setOnClickListener(this);
 
 
         TextView text = findViewById(R.id.text);
@@ -118,6 +125,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
+                break;
+            case R.id.btn_java_crash:
+                int i = 1 / 0;
+                break;
+            case R.id.btn_anr_crash:
+                SystemClock.sleep(100000);
                 break;
         }
     }

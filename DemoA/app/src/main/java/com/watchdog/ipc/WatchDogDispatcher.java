@@ -5,10 +5,11 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
-
+import android.util.Log;
 import com.watchdog.ipc.entry.Message;
 import com.watchdog.ipc.services.AppRunningImpl;
 import com.watchdog.ipc.services.BuyAppleImpl;
+import com.watchdog.ipc.services.ClientDiedServiceImpl;
 import com.watchdog.ipc.services.IMessageImpl;
 
 public class WatchDogDispatcher {
@@ -17,6 +18,43 @@ public class WatchDogDispatcher {
     private Handler handler = new Handler(Looper.getMainLooper());
 
     private RemoteCallbackList<MessagereceiveListener> messagereceiveListenerList = new RemoteCallbackList<>();
+
+    private RemoteCallbackList<IClientCallback> callbackList;
+
+    /**
+     * 在service 中初始化
+     */
+    public void onCreate() {
+        callbackList = new RemoteCallbackList<IClientCallback>() {
+            @Override
+            public void onCallbackDied(IClientCallback callback) {
+                Log.e(TAG, "onCallbackDied: ");
+            }
+
+            @Override
+            public void onCallbackDied(IClientCallback callback, Object appinfo) {
+                super.onCallbackDied(callback, appinfo);
+                // 可以通过packagename判断是哪个client掉线了
+                Log.e(TAG, "onCallbackDied: "+callback+" cookie "+appinfo.toString());
+
+//                try {
+//                    callback.clientDiedCallBack();
+//                } catch (RemoteException e) {
+//                    e.printStackTrace();
+//                }
+            }
+
+            @Override
+            public void kill() {
+                super.kill();
+                Log.e(TAG, "kill: ");
+            }
+        };
+    }
+
+    public RemoteCallbackList<IClientCallback> getCallbackList() {
+        return callbackList;
+    }
 
     public static WatchDogDispatcher sInstance;
 
@@ -50,6 +88,8 @@ public class WatchDogDispatcher {
                 return BuyAppleImpl.getInstance().asBinder();
             } else if(IAppRunningListener.class.getSimpleName().equals(serviceName)){
                 return AppRunningImpl.getInstance().asBinder();
+            } else if(IClientDiedService.class.getSimpleName().equals(serviceName)){
+                return ClientDiedServiceImpl.getInstance().asBinder();
             } else {
                 return null;
             }

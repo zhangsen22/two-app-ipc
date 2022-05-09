@@ -5,13 +5,13 @@ import android.os.Parcelable;
 
 public class AppInfo implements Parcelable {
 
-    public String processName;
-    public String className;
-    public String packageName;
-    public int versionCode;
-    public String versionName;
-    public int pid;
-    public int processState;
+    private String processName;
+    private String className;
+    private String packageName;
+    private int versionCode;
+    private String versionName;
+    private int pid;
+    private int processState;
 
     public AppInfo() {
     }
@@ -53,4 +53,73 @@ public class AppInfo implements Parcelable {
             return new AppInfo[size];
         }
     };
+
+    public String getProcessName() {
+        return processName;
+    }
+
+    public void setProcessName(String processName) {
+        this.processName = processName;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
+
+    public int getVersionCode() {
+        return versionCode;
+    }
+
+    public void setVersionCode(int versionCode) {
+        this.versionCode = versionCode;
+    }
+
+    public String getVersionName() {
+        return versionName;
+    }
+
+    public void setVersionName(String versionName) {
+        this.versionName = versionName;
+    }
+
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
+
+    public int getProcessState() {
+        return processState;
+    }
+
+    public void setProcessState(int processState) {
+        this.processState = processState;
+    }
+
+    @Override
+    public String toString() {
+        return "AppInfo{" +
+                "processName='" + processName + '\'' +
+                ", className='" + className + '\'' +
+                ", packageName='" + packageName + '\'' +
+                ", versionCode=" + versionCode +
+                ", versionName='" + versionName + '\'' +
+                ", pid=" + pid +
+                ", processState=" + processState +
+                '}';
+    }
 }
