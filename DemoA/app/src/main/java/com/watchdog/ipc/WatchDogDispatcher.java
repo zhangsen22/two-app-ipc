@@ -43,7 +43,7 @@ public class WatchDogDispatcher {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        LaunchAppManager.getInstance().openPackage(context,appInfo.getPackageName());
+                        LaunchAppManager.getInstance().openPackage(context,appInfo.getPackageName());
                     }
                 },1000);
 //                try {
