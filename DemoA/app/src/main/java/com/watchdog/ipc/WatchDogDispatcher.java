@@ -1,11 +1,14 @@
 package com.watchdog.ipc;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.util.Log;
+
+import com.watchdog.ipc.entry.AppInfo;
 import com.watchdog.ipc.entry.Message;
 import com.watchdog.ipc.services.AppRunningImpl;
 import com.watchdog.ipc.services.BuyAppleImpl;
@@ -24,7 +27,7 @@ public class WatchDogDispatcher {
     /**
      * 在service 中初始化
      */
-    public void onCreate() {
+    public void onCreate(Context context) {
         callbackList = new RemoteCallbackList<IClientCallback>() {
             @Override
             public void onCallbackDied(IClientCallback callback) {
@@ -34,9 +37,15 @@ public class WatchDogDispatcher {
             @Override
             public void onCallbackDied(IClientCallback callback, Object appinfo) {
                 super.onCallbackDied(callback, appinfo);
+                AppInfo appInfo = (AppInfo) appinfo;
                 // 可以通过packagename判断是哪个client掉线了
                 Log.e(TAG, "onCallbackDied: "+callback+" cookie "+appinfo.toString());
-
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+//                        LaunchAppManager.getInstance().openPackage(context,appInfo.getPackageName());
+                    }
+                },1000);
 //                try {
 //                    callback.clientDiedCallBack();
 //                } catch (RemoteException e) {
@@ -55,8 +64,6 @@ public class WatchDogDispatcher {
     public RemoteCallbackList<IClientCallback> getCallbackList() {
         return callbackList;
     }
-
-    public static WatchDogDispatcher sInstance;
 
     //private
     private WatchDogDispatcher() {

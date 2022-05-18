@@ -378,4 +378,34 @@ public class PackageInfoManager {
         }
         return false;
     }
+
+    /**
+     * 判断版本更新
+     * @param localVersion 本地app 版本号 1.2.3
+     * @param newVersion 最新版本号       1.2.4
+     * @return true 需要更新 false 不用
+     */
+    public static boolean updateApp(String localVersion, String newVersion) {
+        String[] localVersionArray = localVersion.split("\\.");
+        String[] newVersionArray = newVersion.split("\\.");
+        if (localVersionArray.length < newVersionArray.length) {
+            int cha = newVersionArray.length - localVersionArray.length;
+            for (int i = 0; i < cha; i++) {
+                localVersion = localVersion + ".0";
+            }
+            localVersionArray = localVersion.split("\\.");
+        }
+        try {
+            for (int i = 0; i < newVersionArray.length; i++) {
+                int temp = Integer.parseInt(newVersionArray[i]);
+                int compar = Integer.parseInt(localVersionArray[i]);
+                if (temp > compar) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

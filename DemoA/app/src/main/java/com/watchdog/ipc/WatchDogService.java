@@ -19,7 +19,7 @@ public class WatchDogService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.i(TAG, "[WatchDogService] onCreate");
-        WatchDogDispatcher.getInstance().onCreate();
+        WatchDogDispatcher.getInstance().onCreate(getApplicationContext());
     }
 
     @Nullable
@@ -32,11 +32,13 @@ public class WatchDogService extends Service {
     @Override
     public boolean onUnbind(Intent intent) {
         Log.i(TAG, "[WatchDogService] onUnbind");
-        /**
-         * 后期优化  代表client端断开连接
-         */
-//        LaunchAppManager.getInstance().openPackage(this,"com.example.demob");
         return super.onUnbind(intent);
+    }
+
+    @Override
+    public void onRebind(Intent intent) {
+        Log.i(TAG, "[WatchDogService] onRebind");
+        super.onRebind(intent);
     }
 
     @Override

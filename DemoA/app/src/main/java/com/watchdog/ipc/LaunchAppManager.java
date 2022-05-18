@@ -5,6 +5,8 @@ import android.content.pm.IPackageDeleteObserver;
 import android.content.pm.IPackageInstallObserver;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.util.Log;
+
 import com.watchdog.ipc.interfaces.OnPackagedDeleteObserver;
 import com.watchdog.ipc.interfaces.OnPackagedInstallObserver;
 import com.watchdog.ipc.observers.PackageDeleteObserver;
@@ -99,12 +101,20 @@ public class LaunchAppManager {
      * @param packagename apk包名
      */
     public void unInstallApk(Context context, String packagename, OnPackagedDeleteObserver onPackagedDeleteObserver) {
-        PackageInfoManager.killProcess(context,packagename);//先杀死进程
+        Log.i(TAG, "[unInstallApk] 1");
+//        PackageInfoManager.killProcess(context,packagename);//先杀死进程
+        Log.i(TAG, "[unInstallApk] 2");
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        Log.i(TAG, "[unInstallApk] 3");
         PackageManager pm = context.getPackageManager();
         Class<?>[] uninstalltypes = new Class[] {String.class, IPackageDeleteObserver.class, int.class};
         try {
             Method uninstallmethod = pm.getClass().getMethod("deletePackage", uninstalltypes);
-            uninstallmethod.invoke(pm, new Object[] {packagename, new PackageDeleteObserver(onPackagedDeleteObserver), UNINSTALL_FLAG});
+            uninstallmethod.invoke(pm, new Object[] {packagename, new PackageDeleteObserver(onPackagedDeleteObserver), 0});
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
