@@ -82,18 +82,19 @@ public class IWatchDogManager {
         @Override
         public void onServiceDisconnected(ComponentName name) {
             Log.d(TAG, this.toString() + "-->onServiceDisconnected");
+            unRegisterRemoteService(mApplicationContext,null,null);
             /**
              * service端断开连接
              */
             isBind = false;
             mCrashService.clear();
-            registerRemoteService(mApplicationContext,null,null);
         }
 
         @Override
         public void onBindingDied(ComponentName name) {
             Log.d(TAG, this.toString() + "-->onBindingDied");
             ServiceConnection.super.onBindingDied(name);
+            registerRemoteService(mApplicationContext,null,null);
         }
 
         @Override
@@ -128,14 +129,14 @@ public class IWatchDogManager {
      */
     public <T extends IBinder> void unRegisterRemoteService(Context context, String serviceCanonicalName, T stubBinder) {
         if (isBind) {
-            try {
-                IMessageService remoteService = getRemoteService(IMessageService.class);
-                if(remoteService != null){
-                    remoteService.unRegistMessageReceiveListener(null);//全部注销监听
-                }
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                IMessageService remoteService = getRemoteService(IMessageService.class);
+//                if(remoteService != null){
+//                    remoteService.unRegistMessageReceiveListener(null);//全部注销监听
+//                }
+//            } catch (RemoteException e) {
+//                e.printStackTrace();
+//            }
             context.unbindService(serviceConnection);
         }
     }
