@@ -37,7 +37,8 @@
             android:enabled="true"
             android:exported="true">
 
-            <intent-filter>
+            <intent-filter
+                android:priority="1000">
 
                 <action android:name="com.watchdog.ipc.WatchDogService" />
                 <category android:name="android.intent.category.DEFAULT" />

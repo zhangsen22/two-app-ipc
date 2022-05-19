@@ -19,6 +19,7 @@ public class IWatchDogManager {
     private static final String TAG = "IWatchDogManager";
     private static final String WATCHDOG_ACTION = "com.watchdog.ipc.WatchDogService";
     private static final String WATCHDOG_PACKAGE = "com.watchdog.ipc";
+    private Context mApplicationContext;
 
     private boolean isBind = false;
 
@@ -86,6 +87,19 @@ public class IWatchDogManager {
              */
             isBind = false;
             mCrashService.clear();
+            registerRemoteService(mApplicationContext,null,null);
+        }
+
+        @Override
+        public void onBindingDied(ComponentName name) {
+            Log.d(TAG, this.toString() + "-->onBindingDied");
+            ServiceConnection.super.onBindingDied(name);
+        }
+
+        @Override
+        public void onNullBinding(ComponentName name) {
+            Log.d(TAG, this.toString() + "-->onNullBinding");
+            ServiceConnection.super.onNullBinding(name);
         }
     };
 
@@ -97,6 +111,7 @@ public class IWatchDogManager {
      * @param <T>
      */
     public <T extends IBinder> void registerRemoteService(Context context, String serviceCanonicalName, T stubBinder) {
+        mApplicationContext = context;
         Intent mIntent = new Intent();
         mIntent.setAction(WATCHDOG_ACTION);
         mIntent.setPackage(WATCHDOG_PACKAGE);
@@ -125,6 +140,12 @@ public class IWatchDogManager {
         }
     }
 
+    /**
+     * 获取的返回值需要判空
+     * @param serviceClass
+     * @param <T>
+     * @return
+     */
     public <T extends android.os.IInterface> T getRemoteService(@NonNull Class<T> serviceClass) {
 
         if(!isBind){

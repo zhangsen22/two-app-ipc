@@ -3,21 +3,19 @@ package com.watchdog.ipc;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
 
 /**
  * 管理链接
  */
 public class WatchDogService extends Service {
     private static final String TAG = "WatchDogService";
+    private String CHANNEL_ID = "Background job";
 
     public WatchDogService() {
     }
@@ -25,48 +23,31 @@ public class WatchDogService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-//        String ID = "com.sidebar.project";	//这里的id里面输入自己的项目的包的路径
-//        String NAME = "LEFTBAR";
-//        Intent intent = new Intent(WatchDogService.this, MainActivity.class);
-//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-//        NotificationCompat.Builder notification; //创建服务对象
-//        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            NotificationChannel channel = new NotificationChannel(ID, NAME, manager.IMPORTANCE_HIGH);
-//            channel.enableLights(true);
-//            channel.setShowBadge(true);
-//            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
-//            manager.createNotificationChannel(channel);
-//            notification = new NotificationCompat.Builder(WatchDogService.this).setChannelId(ID);
-//        } else {
-//            notification = new NotificationCompat.Builder(WatchDogService.this);
-//        }
-//        notification.setContentIntent(pendingIntent).build();
-//        Notification notification1 = notification.build();
-//        startForeground(1,notification1);
-//        //manager.notify(1,notification1);
-
-
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            Context mContext = getApplicationContext();
-            String CHANNEL_ID = "Background job";
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_ID, NotificationManager.IMPORTANCE_LOW);
-            ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).createNotificationChannel(channel);
-            Notification notification =
-                    new Notification.Builder(mContext, CHANNEL_ID)
-                            .setContentTitle("Running background job")
-                            .setContentText(mContext.getPackageName())
-                            .setSmallIcon(R.drawable.notification_icon)
-                            .build();
-            startForeground(1, notification);
-        }
-
-
-
-
+        startForeground(1, getNotification());
         Log.i(TAG, "[WatchDogService] onCreate - Thread ID = " + Thread.currentThread().getId());
         WatchDogDispatcher.getInstance().onCreate(getApplicationContext());
+    }
+
+    private Notification getNotification() {
+        Context mContext = getApplicationContext();
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification.Builder builder;
+        //创建NotificationChannel
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_ID, NotificationManager.IMPORTANCE_LOW);
+            // 必须创建notifychannel, 不然会抛异常Bad notification for startForeground: java.lang.RuntimeException: invalid channel for service
+            notificationManager.createNotificationChannel(channel);
+            //设置Notification的ChannelID,否则不能正常显示
+            builder = new Notification.Builder(mContext, CHANNEL_ID);
+        }else {
+            builder = new Notification.Builder(mContext);
+        }
+
+        Notification notification = builder.setContentTitle("WatchDogService is Running background")
+                .setContentText(mContext.getPackageName())
+                .setSmallIcon(R.drawable.notification_icon)
+                .build();
+        return notification;
     }
 
     @Nullable
@@ -91,7 +72,14 @@ public class WatchDogService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG, "[WatchDogService] onStartCommand - startId = " + startId + ", Thread ID = " + Thread.currentThread().getId());
-        return super.onStartCommand(intent, flags, startId);
+        /**
+         * 表示Service运行的进程被Android系统强制杀掉之后，Android系统会将该Service依然设置为started状态（即运行状态），
+         * 但是不再保存onStartCommand方法传入的intent对象，然后Android系统会尝试再次重新创建该Service，并执行onStartCommand回调方法，
+         * 但是onStartCommand回调方法的Intent参数为null，也就是onStartCommand方法虽然会执行但是获取不到intent信息。
+         * 如果你的Service可以在任意时刻运行或结束都没什么问题，而且不需要intent信息，那么就可以在onStartCommand方法中返回START_STICKY
+         */
+        return START_STICKY;
+//        return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
@@ -100,5 +88,4 @@ public class WatchDogService extends Service {
         super.onDestroy();
         stopForeground(true);
     }
-
 }
