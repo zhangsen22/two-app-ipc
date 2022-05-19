@@ -89,6 +89,13 @@ public class IWatchDogManager {
         }
     };
 
+    /**
+     * bindService -> WatchDogService
+     * @param context
+     * @param serviceCanonicalName
+     * @param stubBinder
+     * @param <T>
+     */
     public <T extends IBinder> void registerRemoteService(Context context, String serviceCanonicalName, T stubBinder) {
         Intent mIntent = new Intent();
         mIntent.setAction(WATCHDOG_ACTION);
@@ -97,6 +104,13 @@ public class IWatchDogManager {
         context.bindService(mIntent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
+    /**
+     * unbindService -> WatchDogService
+     * @param context
+     * @param serviceCanonicalName
+     * @param stubBinder
+     * @param <T>
+     */
     public <T extends IBinder> void unRegisterRemoteService(Context context, String serviceCanonicalName, T stubBinder) {
         if (isBind) {
             try {
@@ -112,6 +126,11 @@ public class IWatchDogManager {
     }
 
     public <T extends android.os.IInterface> T getRemoteService(@NonNull Class<T> serviceClass) {
+
+        if(!isBind){
+            throw new IllegalStateException("service is die");
+        }
+
         if (mCrashService == null) {
             throw new IllegalStateException("aidl no connect you must connect service");
         }
