@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/notification_icon.xml" value="0.4535" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.478125" />
       </map>
     </option>

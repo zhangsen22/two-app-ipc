@@ -1,10 +1,12 @@
 package com.watchdog.ipc;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.IPackageDeleteObserver;
 import android.content.pm.IPackageInstallObserver;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 
 import com.watchdog.ipc.interfaces.OnPackagedDeleteObserver;
@@ -22,6 +24,7 @@ public class LaunchAppManager {
     public static final int DELETE_SUCCEEDED = 1;
     public static final int INSTALL_FLAG = 2;
     public static final int UNINSTALL_FLAG = 0;
+    private Intent watchDogService = null;
 
 
     /**
@@ -101,15 +104,6 @@ public class LaunchAppManager {
      * @param packagename apk包名
      */
     public void unInstallApk(Context context, String packagename, OnPackagedDeleteObserver onPackagedDeleteObserver) {
-        Log.i(TAG, "[unInstallApk] 1");
-//        PackageInfoManager.killProcess(context,packagename);//先杀死进程
-        Log.i(TAG, "[unInstallApk] 2");
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-        Log.i(TAG, "[unInstallApk] 3");
         PackageManager pm = context.getPackageManager();
         Class<?>[] uninstalltypes = new Class[] {String.class, IPackageDeleteObserver.class, int.class};
         try {
@@ -121,6 +115,33 @@ public class LaunchAppManager {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * startService -> WatchDogService
+     * @param context
+     */
+    public void startService(Context context){
+        //开启服务
+        if(watchDogService == null) {
+            watchDogService = new Intent(context, WatchDogService.class);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(watchDogService);
+        } else {
+            context.startService(watchDogService);
+        }
+    }
+
+    /**
+     * stopService -> WatchDogService
+     * @param context
+     */
+    public void stopService(Context context){
+        if(watchDogService != null){
+            context.stopService(watchDogService);
         }
     }
 }
