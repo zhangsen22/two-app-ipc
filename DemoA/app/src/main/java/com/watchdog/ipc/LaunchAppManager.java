@@ -7,24 +7,23 @@ import android.content.pm.IPackageInstallObserver;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
-import android.util.Log;
-
 import com.watchdog.ipc.interfaces.OnPackagedDeleteObserver;
 import com.watchdog.ipc.interfaces.OnPackagedInstallObserver;
 import com.watchdog.ipc.observers.PackageDeleteObserver;
 import com.watchdog.ipc.observers.PackageInstallObserver;
+import com.watchdog.ipc.scheduler.JobSchedulerService;
 import com.watchdog.ipc.utils.PackageInfoManager;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class LaunchAppManager {
-    private static final String TAG = "LaunchAppManager";
     public static final int INSTALL_SUCCEEDED = 1;
     public static final int DELETE_SUCCEEDED = 1;
     public static final int INSTALL_FLAG = 2;
     public static final int UNINSTALL_FLAG = 0;
     private Intent watchDogService = null;
+    private Intent jobSchedulerService = null;
 
 
     /**
@@ -122,7 +121,7 @@ public class LaunchAppManager {
      * startService -> WatchDogService
      * @param context
      */
-    public void startService(Context context){
+    public void startWatchDogService(Context context){
         //开启服务
         if(watchDogService == null) {
             watchDogService = new Intent(context, WatchDogService.class);
@@ -139,9 +138,36 @@ public class LaunchAppManager {
      * stopService -> WatchDogService
      * @param context
      */
-    public void stopService(Context context){
+    public void stopWatchDogService(Context context){
         if(watchDogService != null){
             context.stopService(watchDogService);
+        }
+    }
+
+    /**
+     * startService -> JobSchedulerService
+     * @param context
+     */
+    public void startJobSchedulerService(Context context){
+        //开启服务
+        // 启动服务并提供一种与此类通信的方法。
+        if(jobSchedulerService == null) {
+            jobSchedulerService = new Intent(context, JobSchedulerService.class);
+        }
+        context.startService(jobSchedulerService);
+    }
+
+    /**
+     * stopService -> JobSchedulerService
+     * @param context
+     */
+    public void stopJobSchedulerService(Context context){
+        // 服务可以是“开始”和/或“绑定”。 在这种情况下，它由此Activity“启动”
+        // 和“绑定”到JobScheduler（也被JobScheduler称为“Scheduled”）。
+        // 对stopService（）的调用不会阻止处理预定作业。
+        // 然而，调用stopService（）失败将使它一直存活。
+        if(jobSchedulerService != null) {
+            context.stopService(jobSchedulerService);
         }
     }
 }

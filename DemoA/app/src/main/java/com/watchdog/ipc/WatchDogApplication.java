@@ -7,6 +7,6 @@ public class WatchDogApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        LaunchAppManager.getInstance().startService(getApplicationContext());
+        LaunchAppManager.getInstance().startWatchDogService(getApplicationContext());
     }
 }

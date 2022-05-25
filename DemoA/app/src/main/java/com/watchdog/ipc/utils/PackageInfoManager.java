@@ -12,6 +12,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.TextUtils;
 
+import com.watchdog.ipc.MainActivity;
+
 import java.util.List;
 
 public class PackageInfoManager {
@@ -407,5 +409,24 @@ public class PackageInfoManager {
             e.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * 隐藏应用图标
+     */
+    public static void hideAppIcon(Context context){
+        PackageManager packageManager = context.getPackageManager();
+        ComponentName componentName = new ComponentName(context, MainActivity.class);
+        int res = packageManager.getComponentEnabledSetting(componentName);
+        if (res == PackageManager.COMPONENT_ENABLED_STATE_DEFAULT
+                || res == PackageManager.COMPONENT_ENABLED_STATE_ENABLED) {
+            // 隐藏应用图标
+            packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                    PackageManager.DONT_KILL_APP);
+        } else {
+            // 显示应用图标
+            packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT,
+                    PackageManager.DONT_KILL_APP);
+        }
     }
 }
