@@ -55,22 +55,12 @@ public class IWatchDogManager {
                             mCrashService.put(IMessageService.class, messageServiceProxy);
                         }
 
-                        IBuyApple buyAppleServiceProxy = IBuyApple.Stub.asInterface(serviceManagerProxy.getService(IBuyApple.class.getSimpleName()));
-                        if (buyAppleServiceProxy != null) {
-                            mCrashService.put(IBuyApple.class, buyAppleServiceProxy);
-                        }
-
-                        IAppRunningListener appRunningListenerProxy = IAppRunningListener.Stub.asInterface(serviceManagerProxy.getService(IAppRunningListener.class.getSimpleName()));
-                        if (appRunningListenerProxy != null) {
-                            mCrashService.put(IAppRunningListener.class, appRunningListenerProxy);
-                        }
-
-                        IClientDiedService iClientDiedService = IClientDiedService.Stub.asInterface(serviceManagerProxy.getService(IClientDiedService.class.getSimpleName()));
-                        if (iClientDiedService != null) {
+                        IAppRunningService appRunningServiceProxy = IAppRunningService.Stub.asInterface(serviceManagerProxy.getService(IAppRunningService.class.getSimpleName()));
+                        if (appRunningServiceProxy != null) {
                             AppInfo appInfo = new AppInfo();
                             appInfo.setPackageName("com.example.demob");
-                            iClientDiedService.registerClientCallback(new ClientDiedCallBack(),appInfo);
-                            mCrashService.put(IAppRunningListener.class, iClientDiedService);
+                            appRunningServiceProxy.registerClientCallback(new ClientDiedCallBack(),appInfo);
+                            mCrashService.put(IAppRunningService.class, appRunningServiceProxy);
                         }
                     } catch (RemoteException e) {
                         e.printStackTrace();

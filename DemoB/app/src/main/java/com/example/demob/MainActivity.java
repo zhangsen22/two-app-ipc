@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.watchdog.ipc.IWatchDogManager;
 import com.watchdog.ipc.callback.BaseCallback;
-import com.watchdog.ipc.IBuyApple;
 import com.watchdog.ipc.IMessageService;
 import com.watchdog.ipc.MessagereceiveListener;
 import com.watchdog.ipc.entry.Message;
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnSendMessage;
     private Button btnRegisterListener;
     private Button btnUnRegisterListener;
-    private Button btn_buy_apple;
+    private Button btn_send_message_with_callback;
     private Button btn_java_crash;
     private Button btn_anr_crash;
 
@@ -40,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSendMessage = findViewById(R.id.btn_send_message);
         btnRegisterListener = findViewById(R.id.btn_register_listener);
         btnUnRegisterListener = findViewById(R.id.btn_unregister_listener);
-        btn_buy_apple = findViewById(R.id.btn_buy_apple);
+        btn_send_message_with_callback = findViewById(R.id.btn_send_message_with_callback);
         btn_java_crash = findViewById(R.id.btn_java_crash);
         btn_anr_crash = findViewById(R.id.btn_anr_crash);
 
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSendMessage.setOnClickListener(this);
         btnRegisterListener.setOnClickListener(this);
         btnUnRegisterListener.setOnClickListener(this);
-        btn_buy_apple.setOnClickListener(this);
+        btn_send_message_with_callback.setOnClickListener(this);
         btn_java_crash.setOnClickListener(this);
         btn_anr_crash.setOnClickListener(this);
 
@@ -104,11 +103,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     e.printStackTrace();
                 }
                 break;
-            case R.id.btn_buy_apple:
+            case R.id.btn_send_message_with_callback:
                 try {
-                    IBuyApple remoteService = IWatchDogManager.getInstance().getRemoteService(IBuyApple.class);
+                    IMessageService remoteService = IWatchDogManager.getInstance().getRemoteService(IMessageService.class);
                     if(remoteService != null){
-                        remoteService.buyAppleOnNet(10, new BaseCallback() {
+                        Message message1 = new Message();
+                        message1.setContent("测试");
+                        remoteService.sendMessageWithCallback(message1, new BaseCallback() {
                             @Override
                             public void onSucceed(Bundle result) {
                                 int appleNum = result.getInt("Result", 0);

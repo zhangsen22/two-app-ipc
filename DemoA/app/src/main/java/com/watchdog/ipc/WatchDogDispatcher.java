@@ -17,8 +17,6 @@ import com.watchdog.ipc.entry.AppInfo;
 import com.watchdog.ipc.entry.Message;
 import com.watchdog.ipc.scheduler.JobSchedulerService;
 import com.watchdog.ipc.services.AppRunningImpl;
-import com.watchdog.ipc.services.BuyAppleImpl;
-import com.watchdog.ipc.services.ClientDiedServiceImpl;
 import com.watchdog.ipc.services.IMessageImpl;
 
 public class WatchDogDispatcher {
@@ -103,12 +101,8 @@ public class WatchDogDispatcher {
         public IBinder getService(String serviceName) throws RemoteException {
             if(IMessageService.class.getSimpleName().equals(serviceName)){
                 return IMessageImpl.getInstance().asBinder();
-            }else if(IBuyApple.class.getSimpleName().equals(serviceName)){
-                return BuyAppleImpl.getInstance().asBinder();
-            } else if(IAppRunningListener.class.getSimpleName().equals(serviceName)){
+            }else if(IAppRunningService.class.getSimpleName().equals(serviceName)){
                 return AppRunningImpl.getInstance().asBinder();
-            } else if(IClientDiedService.class.getSimpleName().equals(serviceName)){
-                return ClientDiedServiceImpl.getInstance().asBinder();
             } else {
                 return null;
             }

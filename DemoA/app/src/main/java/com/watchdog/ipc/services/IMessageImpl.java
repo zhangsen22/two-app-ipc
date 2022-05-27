@@ -1,8 +1,10 @@
 package com.watchdog.ipc.services;
 
+import android.os.Bundle;
 import android.os.RemoteException;
 import com.watchdog.ipc.IMessageService;
 import com.watchdog.ipc.IPCCallback;
+import com.watchdog.ipc.Logger;
 import com.watchdog.ipc.MessagereceiveListener;
 import com.watchdog.ipc.WatchDogDispatcher;
 import com.watchdog.ipc.entry.Message;
@@ -19,12 +21,27 @@ public class IMessageImpl extends IMessageService.Stub {
 
     @Override
     public void sendMessage(Message message) throws RemoteException {
-
+        Logger.d("sendMessage-->:  " + message.toString());
     }
 
     @Override
     public void sendMessageWithCallback(Message message, IPCCallback callback) throws RemoteException {
+        /**
+         * 测试客户端给服务端发送消息
+         */
+        Logger.d("sendMessageWithCallback-->:  " + message.toString());
 
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+
+
+        Bundle result = new Bundle();
+        result.putInt("Result", 20);
+        callback.onSuccess(result);
     }
 
     @Override
