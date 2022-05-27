@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.watchdog.ipc">
+    package="com.watchdog.demoa">
 <!--    android:sharedUserId="android.uid.system">-->
 
     <queries>
@@ -43,7 +43,7 @@
             <intent-filter
                 android:priority="1000">
 
-                <action android:name="com.watchdog.ipc.WatchDogService" />
+                <action android:name="com.watchdog.demoa.WatchDogService" />
                 <category android:name="android.intent.category.DEFAULT" />
 
             </intent-filter>

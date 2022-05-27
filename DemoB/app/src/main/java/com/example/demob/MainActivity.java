@@ -14,11 +14,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.watchdog.ipc.IWatchDogManager;
-import com.watchdog.ipc.callback.BaseCallback;
-import com.watchdog.ipc.IMessageService;
-import com.watchdog.ipc.MessagereceiveListener;
-import com.watchdog.ipc.entry.Message;
+import com.watchdog.demoa.ipc.IWatchDogManager;
+import com.watchdog.demoa.ipc.callback.BaseCallback;
+import com.watchdog.demoa.ipc.IMessageService;
+import com.watchdog.demoa.ipc.MessagereceiveListener;
+import com.watchdog.demoa.ipc.entry.Message;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {

@@ -6,7 +6,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.watchdog.ipc"
+        applicationId "com.watchdog.demoa"
         minSdk 21
         targetSdk 32
         versionCode 1

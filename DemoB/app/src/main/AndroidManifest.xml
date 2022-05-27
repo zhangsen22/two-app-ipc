@@ -3,7 +3,7 @@
     package="com.example.demob">
 
     <queries>
-        <package android:name="com.watchdog.ipc" />
+        <package android:name="com.watchdog.demoa" />
     </queries>
 
     <application
