@@ -51,6 +51,7 @@ public class WatchDogDispatcher {
                 AppInfo appInfo = (AppInfo) appinfo;
                 // 可以通过packagename判断是哪个client掉线了
                 Logger.e( "onCallbackDied: "+callback+" cookie "+appinfo.toString());
+                Logger.e( "当前剩余链接客户端的数量: "+callbackList.getRegisteredCallbackCount());
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
